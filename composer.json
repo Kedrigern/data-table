@@ -1,9 +1,9 @@
 {
-	"name": "kedrigern/dataTable",
+	"name": "kedrigern/data-table",
 	"description": "Manipulation with table organized collection of data.",
 	"keywords": ["data", "table", "spreadsheet", "csv", "column", "row", "array"],
 	"homepage": "https://github.com/Kedrigern/",
-	"license": ["BSD-3-Clause", "GPL-2.0", "GPL-3.0"],
+	"license": ["BSD-3-Clause", "GPL-3.0"],
 	"authors": [
 		{
 			"name": "Ondřej Profant",
@@ -17,7 +17,7 @@
 		"nette/tester": "~1.2.0"
 	},
 	"replace": {
-		"kedrigern/dataTable": "self.version"
+		"kedrigern/data-table": "self.version"
 	},
 	"autoload": {
 		"files": ["src/load.php"]
