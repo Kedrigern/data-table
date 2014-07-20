@@ -218,13 +218,17 @@ class Table implements ITable {
 
 	/**
 	 * @inheritdoc
-	 * @todo enclosure
 	 */
 	public function toCsv($delimiter = ",") {
 		$string = '';
 		foreach($this->table as $row) {
 			foreach($row as $cell) {
-				$string .= $cell . $delimiter;
+				if(is_numeric($cell)) {
+					$string .= $cell;
+				} else {
+					$string .= addslashes($cell);
+				}
+				$string .= $delimiter;
 			}
 			$string .= "\n";
 		}

@@ -37,6 +37,12 @@ interface IRecordTable extends ITable {
 	public function getColByName($name);
 
 	/**
+	 * @param string|int $name or num of column
+	 * @param callable $function
+	 */
+	public function callToCol($name, $function);
+
+	/**
 	 * @param string $name
 	 * @param callable|null $compare
 	 */

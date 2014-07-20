@@ -37,6 +37,16 @@ class RecordTable extends Table implements IRecordTable {
 	}
 
 	/**
+	 * @inheritdoc
+	 */
+	public function callToCol($name, $function) {
+		if(!is_numeric($name)) {
+			$name = $this->findColNum($name);
+		}
+		parent::callToCol($name, $function);
+	}
+
+	/**
 	 * Get row as associative array
 	 * @param int $num
 	 * @return arrow

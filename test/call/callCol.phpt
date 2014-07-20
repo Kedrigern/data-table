@@ -1,8 +1,12 @@
 <?php
 
+/**
+ * Test: call to call
+ */
+
 require_once "../bootstrap.php";
 
-$t = new \Kedrigern\DataTable\RecordTable();
+$t = new \Kedrigern\DataTable\Table();
 
 $t->loadFromArray(array(
 	array(1),
