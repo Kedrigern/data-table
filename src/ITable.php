@@ -91,6 +91,25 @@ interface ITable {
 	 */
 	public function appendCol(array $col);
 
+	/**
+	 * Remove given column
+	 * @param int $num
+	 */
+	public function removeCol($num);
+
+	/**
+	 * Remove given row
+	 * @param int $num
+	 */
+	public function removeRow($num);
+
+	/**
+	 * Remove rows if $condition return true
+	 * @param callable $condition
+	 * @return int number of removed rows
+	 */
+	public function removeRowsIf($condition);
+
 	/**** Loads ****/
 
 	/**

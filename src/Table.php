@@ -175,6 +175,51 @@ class Table implements ITable {
 		}
 	}
 
+	/**
+	 * Remove given column
+	 * @param int $num
+	 */
+	public function removeCol($num) {
+		if($num == 0 && $this->getColsNum() == 1) {
+			$this->table = array();
+			return;
+		}
+
+		foreach($this->table as &$row) {
+			unset($row[$num]);
+			$row = array_values($row);
+		}
+	}
+
+	/**
+	 * Remove given row
+	 * @param int $num
+	 */
+	public function removeRow($num) {
+		unset($this->table[$num]);
+		// normalize indexes
+		$this->table = array_values($this->table);
+	}
+
+	/**
+	 * @inheritdoc
+	 */
+	public function removeRowsIf($condition) {
+		$modified = 0;
+
+		foreach($this->table as $key => $row) {
+			$ret = call_user_func($condition, $row);
+			if($ret) {
+				unset($this->table[$key]);
+				$modified++;
+			}
+		}
+		// normalize indexes
+		$this->table = array_values($this->table);
+
+		return $modified;
+	}
+
 	/**** Exports ****/
 
 	/**
