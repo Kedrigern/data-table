@@ -75,4 +75,10 @@ interface IRecordTable extends ITable {
 	 * @param array $newHeader
 	 */
 	public function resortColsByNewHeader(array $newHeader);
+
+	/**
+	 * Load from iterable data. For example some DB class, and load only columns from header.
+	 * @param iterable $data
+	 */
+	public function loadByHeader($data);
 }

@@ -194,6 +194,20 @@ class RecordTable extends Table implements IRecordTable {
 	}
 
 	/**
+	 * @inheritdoc
+	 */
+	public function loadByHeader($data) {
+		$this->table = [];
+		$index = 0;
+		foreach($data as $row) {
+			foreach($this->header as $head) {
+				$this->table[$index][] = $row[$head];
+			}
+			$index++;
+		}
+	}
+
+	/**
 	 * @param string $name
 	 * @return int
 	 * @throws TableException
