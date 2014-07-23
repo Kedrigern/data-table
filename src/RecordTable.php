@@ -95,6 +95,16 @@ class RecordTable extends Table implements IRecordTable {
 	}
 
 	/**
+	 * Remove given column
+	 * @param int $num
+	 */
+	public function removeCol($num) {
+		parent::removeCol($num);
+		unset($this->header[$num]);
+		$this->header = array_values($this->header);
+	}
+
+	/**
 	 * Use first row as column
 	 */
 	public function useFirstRowAsHeader() {
