@@ -7,16 +7,18 @@
  */
 class Table implements ITable {
 
-	/** @var array */
+	/** @var array main data*/
 	protected $table = array();
 
-	/** @var int */
+	/** @var int for sorting algorithm */
 	public $sortNum = 0;
 
 	/**** Getters ****/
 
 	/**
-	 * @inheritdoc
+	 * @param int $i
+	 * @param int $j
+	 * @return mixed
 	 */
 	public function get($i, $j)
 	{
@@ -24,7 +26,9 @@ class Table implements ITable {
 	}
 
 	/**
-	 * @inheritdoc
+	 * Get the column
+	 * @param int $num
+	 * @return array
 	 */
 	public function getCol($num)
 	{
@@ -32,7 +36,8 @@ class Table implements ITable {
 	}
 
 	/**
-	 * @inheritdoc
+	 * @param int $num
+	 * @return array
 	 */
 	public function getRow($num)
 	{
@@ -41,7 +46,8 @@ class Table implements ITable {
 
 
 	/**
-	 * @inheritdoc
+	 * Get total number of columns
+	 * @return int
 	 */
 	public function getColsNum()
 	{
@@ -52,7 +58,8 @@ class Table implements ITable {
 	}
 
 	/**
-	 * @inheritdoc
+	 * Get total number of rows
+	 * @return int
 	 */
 	public function getRowsNum()
 	{
@@ -60,7 +67,7 @@ class Table implements ITable {
 	}
 
 	/**
-	 * @inheritdoc
+	 * @return bool
 	 */
 	public function isEmpty() {
 		return empty($this->table);
@@ -69,14 +76,21 @@ class Table implements ITable {
 	/**** Loads ****/
 
 	/**
-	 * @inheritdoc
+	 * @param array $rawArray multidimensional array, format:
+	 * <code>
+	 *  array (
+	 *      array("row1 col1", "row1 col2"),
+	 *      array("row2 col1", "row2 col2"),
+	 *  )
+	 * </code>
 	 */
 	public function loadFromArray(array $rawArray) {
 		$this->table = $rawArray;
 	}
 
 	/**
-	 * @inheritdoc
+	 * Load from csv string
+	 * @param string $text
 	 */
 	public function loadFromCsvString($text, $delimiter = ",", $enclosure = '"', $escape = "\\")
 	{
@@ -88,7 +102,8 @@ class Table implements ITable {
 	}
 
 	/**
-	 * @inheritdoc
+	 * Load from csv file
+	 * @param string $filename
 	 */
 	public function loadFromCsvFile($filename, $length = 5000, $delimiter = ",", $enclosure = '"', $escape = "\\")
 	{
@@ -103,7 +118,9 @@ class Table implements ITable {
 	/**** Modification ****/
 
 	/**
-	 * @inheritdoc
+	 * Swap two columns
+	 * @param int $col1 number of column
+	 * @param int $col2 number of column
 	 */
 	public function swapCol($col1, $col2)
 	{
@@ -117,7 +134,9 @@ class Table implements ITable {
 	}
 
 	/**
-	 * @inheritdoc
+	 * Swap two rows
+	 * @param int $row1
+	 * @param int $row2
 	 */
 	public function swapRow($row1, $row2)
 	{
