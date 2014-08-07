@@ -59,6 +59,8 @@ $map = array(
 $table2 = $table->renameColumns($map);
 ```
 
+Where `table2` contains column `Alpha` renamed to `A` and column `Beta` renamed to `B`. See [test](test/examples/readme2.phpt).
+
 Remove all rows with even number in first column:
 ```php
 $isEven = function($row) {
@@ -67,9 +69,6 @@ $isEven = function($row) {
 
 $removed = $t->removeRowsIf($isOdd);
 ```
-
-
-Where `table2` contains column `Alpha` renamed to `A` and column `Beta` renamed to `B`. See [test](test/examples/readme2.phpt).
 
 ##Author and contact
  * [Ondřej Profant](https://github.com/Kedrigern), 2014
