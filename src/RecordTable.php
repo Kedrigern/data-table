@@ -138,6 +138,15 @@ class RecordTable extends Table implements IRecordTable {
 	}
 
 	/**
+	 * Create new instance with subset of column in given order
+	 * For example:
+	 * <code>
+	 *  $t->setHeader(array("a", "b", "c"));
+	 *	$t->loadFromArray(array(
+	 * 	    array( "a",  "b",  "c")
+	 *  ));
+	 *  $t2 = $t->resortColsByNewHeader(array("c", "b"));
+	 * </code>
 	 * @param array $newHeader
 	 * @return RecordTable
 	 */
@@ -149,6 +158,27 @@ class RecordTable extends Table implements IRecordTable {
 			$newTable->appendCol($col);
 		}
 		$newTable->setHeader($newHeader);
+		return $newTable;
+	}
+
+	/**
+	 * @param array $newHeader must be associative array with format:
+	 * <code>
+	 *      oldColName1 => newColName1
+	 *      oldColName2 => newColName2
+	 *      ...
+	 * </code>
+	 * Order is hold by order in array
+	 * @return RecordTable
+	 */
+	public function renameColumns(array $newHeader)
+	{
+		$newTable = new RecordTable();
+		foreach($newHeader as $oldname => $newname) {
+			$col = $this->getColByName($oldname);
+			$newTable->appendCol($col);
+		}
+		$newTable->setHeader( array_values($newHeader) );
 		return $newTable;
 	}
 
@@ -184,13 +214,7 @@ class RecordTable extends Table implements IRecordTable {
 			$string .= str_pad($name, $colSize) . $delimiter;
 		}
 		$string .= "\n";
-		foreach($this->table as $row) {
-			foreach($row as $cell) {
-				$string .= str_pad($cell, $colSize) . $delimiter;
-			}
-			$string .= "\n";
-		}
-		return $string;
+		return $string . parent::toString($delimiter, $colSize);
 	}
 
 	/**

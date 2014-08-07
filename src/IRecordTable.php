@@ -72,9 +72,31 @@ interface IRecordTable extends ITable {
 	public function colSum($name);
 
 	/**
+	 * Create new instance with subset of column in given order
+	 * For example:
+	 * <code>
+	 *  $t->setHeader(array("a", "b", "c"));
+	 *	$t->loadFromArray(array(
+	 * 	    array( "a",  "b",  "c")
+	 *  ));
+	 *  $t2 = $t->resortColsByNewHeader(array("c", "b"));
+	 * </code>
 	 * @param array $newHeader
+	 * @return RecordTable
 	 */
 	public function resortColsByNewHeader(array $newHeader);
+
+	/**
+	 * @param array $newHeader must be associative array with format:
+	 * <code>
+	 *      oldColName1 => newColName1
+	 *      oldColName2 => newColName2
+	 *      ...
+	 * </code>
+	 * Order is hold by order in array
+	 * @return RecordTable
+	 */
+	public function renameColumns(array $newHeader);
 
 	/**
 	 * Load from iterable data. For example some DB class, and load only columns from header.

@@ -15,8 +15,12 @@ php composer.phar require kedrigern/data-table
 
 ##Examples
 
+Suppose:
 ```php
 $table = new \Kedrigern\DataTable\RecordTable();
+```
+
+```php
 $table->loadFromArray(array(
 	array("Name", "Surname", "Age"),
 	array("Jane", "Roe", 29),
@@ -41,6 +45,21 @@ $newTable = $table->resortColsByNewHeader(array("Unique", "Surname", "Name"));
 1 DOE John
 2 ROE Jane
 ```
+
+Or very common issue when you have some data in csv with header and you need only subset:
+```php
+$table->loadFromCsvFile(__DIR__ . '/../data/data4.csv');
+$table->useFirstRowAsHeader();
+
+$map = array(
+	"Alpha" => "A",
+	"Beta" => "B",
+);
+
+$table2 = $table->renameColumns($map);
+```
+
+Where `table2` contains column `Alpha` renamed to `A` and column `Beta` renamed to `B`. See [test](test/examples/readme2.phpt).
 
 ##Author and contact
  * [Ondřej Profant](https://github.com/Kedrigern), 2014
