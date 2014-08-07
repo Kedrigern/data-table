@@ -1,10 +1,10 @@
 #Data table
 
-For manipulation with table organized collection of data.
+For robust manipulation with table organized collection of data (excel, csv tables).
 
-Provide ability to work with whole rows and columns. See examples.
+Provide ability to work with whole rows and columns, call callbacks, resort, rename, filter... See examples.
 
-Import csv, export to plain text, html, csv.
+Import csv and array. Export to plain array, text, html, csv.
 
 ##Install
 
@@ -46,7 +46,7 @@ $newTable = $table->resortColsByNewHeader(array("Unique", "Surname", "Name"));
 2 ROE Jane
 ```
 
-Or very common issue when you have some data in csv with header and you need only subset:
+Very common issue when you have some data in csv with header and you need only subset:
 ```php
 $table->loadFromCsvFile(__DIR__ . '/../data/data4.csv');
 $table->useFirstRowAsHeader();
@@ -58,6 +58,16 @@ $map = array(
 
 $table2 = $table->renameColumns($map);
 ```
+
+Remove all rows with even number in first column:
+```php
+$isEven = function($row) {
+  return ($row[0] % 2) == 0;
+};
+
+$removed = $t->removeRowsIf($isOdd);
+```
+
 
 Where `table2` contains column `Alpha` renamed to `A` and column `Beta` renamed to `B`. See [test](test/examples/readme2.phpt).
 

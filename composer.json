@@ -1,8 +1,8 @@
 {
 	"name": "kedrigern/data-table",
-	"description": "Manipulation with table organized collection of data.",
+	"description": "Manipulation with table organized collection of data (csv, excel). Contains functions for work with whole columns, rows, filtering etc.",
 	"keywords": ["data", "table", "spreadsheet", "csv", "column", "row", "array"],
-	"homepage": "https://github.com/Kedrigern/",
+	"homepage": "https://github.com/Kedrigern/data-table",
 	"license": ["BSD-3-Clause", "GPL-3.0"],
 	"authors": [
 		{
