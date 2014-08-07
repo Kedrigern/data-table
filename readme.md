@@ -70,6 +70,8 @@ $isEven = function($row) {
 $removed = $t->removeRowsIf($isOdd);
 ```
 
+In `removed` are number of modified rows.
+
 ##Author and contact
  * [Ondřej Profant](https://github.com/Kedrigern), 2014
  * [issues](https://github.com/Kedrigern/data-table/issues)
