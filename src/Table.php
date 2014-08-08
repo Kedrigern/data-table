@@ -73,6 +73,32 @@ class Table implements ITable {
 		return empty($this->table);
 	}
 
+	/**
+	 * Check if every cell in row is empty (by the buildin empty function)
+	 * Be careful 0 is valued as empty
+	 * @param int $num
+	 * @return bool
+	 */
+	public function isRowEmpty($num) {
+		foreach($this->table[$num] as $cell) {
+			if( !empty($cell) ) return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Check if every cell in column is empty (by the buildin empty function)
+	 * Be careful 0 is valued as empty
+	 * @param int $num
+	 * @return bool
+	 */
+	public function isColEmpty($num) {
+		foreach($this->table as $row) {
+			if( !empty($row[$num]) ) return false;
+		}
+		return true;
+	}
+
 	/**** Loads ****/
 
 	/**
@@ -91,6 +117,9 @@ class Table implements ITable {
 	/**
 	 * Load from csv string
 	 * @param string $text
+	 * @param string $delimiter
+	 * @param string $enclosure
+	 * @param string $escape
 	 */
 	public function loadFromCsvString($text, $delimiter = ",", $enclosure = '"', $escape = "\\")
 	{
@@ -104,6 +133,10 @@ class Table implements ITable {
 	/**
 	 * Load from csv file
 	 * @param string $filename
+	 * @param int $length
+	 * @param string $delimiter
+	 * @param string $enclosure
+	 * @param string $escape
 	 */
 	public function loadFromCsvFile($filename, $length = 5000, $delimiter = ",", $enclosure = '"', $escape = "\\")
 	{

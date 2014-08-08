@@ -48,6 +48,22 @@ interface ITable {
 	 */
 	public function isEmpty();
 
+	/**
+	 * Check if every cell in row is empty (by the buildin empty function)
+	 * Be careful 0 is valued as empty
+	 * @param int $num
+	 * @return bool
+	 */
+	public function isRowEmpty($num);
+
+	/**
+	 * Check if every cell in column is empty (by the buildin empty function)
+	 * Be careful 0 is valued as empty
+	 * @param int $num
+	 * @return bool
+	 */
+	public function isColEmpty($num);
+
 	/**** Modification ****/
 
 	/**
