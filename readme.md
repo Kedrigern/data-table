@@ -67,7 +67,7 @@ $isEven = function($row) {
   return ($row[0] % 2) == 0;
 };
 
-$removed = $t->removeRowsIf($isOdd);
+$removed = $t->removeRowsIf($isEven);
 ```
 
 In `removed` are number of modified rows.
