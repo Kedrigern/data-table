@@ -189,22 +189,46 @@ class Table implements ITable {
 	}
 
 	/**
-	 * @inheritdoc
+	 * Call function to the all values in the column
+	 * @param int $num of column
+	 * @param callable $function
+	 * @param array $params params to the callback
+	 * @throws InvalidCallback
 	 */
-	public function callToCol($num, $function)
+	public function callToCol($num, $function, $params = null)
 	{
+		if(!is_callable($function)) {
+			throw new InvalidCallback();
+		}
+
 		foreach($this->table as &$row) {
-			$row[$num] = call_user_func($function, $row[$num]);
+			if(is_null($params)) {
+				$row[$num] = call_user_func($function, $row[$num]);
+			} else {
+				$row[$num] = call_user_func_array($function, array($row[$num], $params));
+			}
 		}
 	}
 
 	/**
-	 * @inheritdoc
+	 * Call function to the all values in the row
+	 * @param int $num of row
+	 * @param callable $function
+	 * @param array $params params to the callback
+	 * @throws InvalidCallback
 	 */
-	public function callToRow($num, $function)
+	public function callToRow($num, $function, $params = null)
 	{
+		if(!is_callable($function)) {
+			throw new InvalidCallback();
+		}
+
 		foreach($this->table[$num] as &$cell) {
-			$cell = call_user_func($function, $cell);
+			if(is_null($params)) {
+				$cell = call_user_func($function, $cell);
+			} else {
+				$cell = call_user_func_array($function, array($cell, $params));
+			}
 		}
 	}
 

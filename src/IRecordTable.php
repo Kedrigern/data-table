@@ -39,8 +39,9 @@ interface IRecordTable extends ITable {
 	/**
 	 * @param string|int $name or num of column
 	 * @param callable $function
+	 * @param array $params
 	 */
-	public function callToCol($name, $function);
+	public function callToCol($name, $function, $params = null);
 
 	/**
 	 * @param string $name
@@ -70,6 +71,22 @@ interface IRecordTable extends ITable {
 	 * @return int
 	 */
 	public function colSum($name);
+
+	/**
+	 * Join columns into one
+	 * @param array $cols columns to be join
+	 * @param string|int $col
+	 * @param null|callable $callback
+	 */
+	public function joinCols(array $cols, $col, $callback = null);
+
+	/**
+	 * Split column into many
+	 * @param string|int $col to be splited
+	 * @param array $cols of new column names
+	 * @param null|callable $callback
+	 */
+	public function splitCol($col, array $cols, $callback = null);
 
 	/**
 	 * Create new instance with subset of column in given order

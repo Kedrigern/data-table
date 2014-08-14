@@ -39,11 +39,11 @@ class RecordTable extends Table implements IRecordTable {
 	/**
 	 * @inheritdoc
 	 */
-	public function callToCol($name, $function) {
+	public function callToCol($name, $function, $params = null) {
 		if(!is_numeric($name)) {
 			$name = $this->findColNum($name);
 		}
-		parent::callToCol($name, $function);
+		parent::callToCol($name, $function, $params);
 	}
 
 	/**
@@ -79,6 +79,76 @@ class RecordTable extends Table implements IRecordTable {
 		$tmpC1 = $this->header[$col1];
 		$this->header[$col1] = $this->header[$col2];
 		$this->header[$col2] = $tmpC1;
+	}
+
+	/**
+	 * Join columns into one
+	 * @param array $cols columns to be join
+	 * @param string|int $col
+	 * @param null|callable $callback
+	 * @throws InvalidCallback
+	 */
+	public function joinCols(array $cols, $col, $callback = null)
+	{
+		foreach($cols as &$colName) {
+			if(is_string($colName)) {
+				$colName = $this->findColNum($colName);
+			}
+		}
+
+		if(is_null($callback)) {
+			$callback = array('\Kedrigern\DataTable\Callback', 'defaultJoin');
+		}
+
+		if(!is_callable($callback)) {
+			throw new InvalidCallback();
+		}
+
+		foreach($this->table as $key => &$row) {
+			//TOOD: Params
+			$params = array();
+			foreach($cols as $colindex) {
+				$params[] = $this->table[$key][$colindex];
+			}
+			$row[] = call_user_func_array($callback, array($params));
+		}
+
+		$this->header[] = $col;
+	}
+
+	/**
+	 * Split column into many
+	 * @param string|int $col to be splited
+	 * @param array $cols of new column names
+	 * @param null|callable $callback
+	 * @throws InvalidCallback
+	 */
+	public function splitCol($col, array $cols, $callback = null)
+	{
+		if(is_null($callback)) {
+			$callback = array('\Kedrigern\DataTable\Callback', 'defaultSplit');
+		}
+
+		if(!is_callable($callback)) {
+			throw new InvalidCallback();
+		}
+
+		if(is_string($col)) {
+			$col = $this->findColNum($col);
+		}
+
+		foreach($this->table as $key => &$row) {
+			$result = call_user_func($callback, $row[$col]);
+			if(count($result) != count($cols)) {
+				throw new InvalidCallback();
+			}
+
+			foreach($result as $res) {
+				$row[] = $res;
+			}
+		}
+
+		$this->header = array_merge($this->header, $cols);
 	}
 
 	/**
@@ -237,6 +307,8 @@ class RecordTable extends Table implements IRecordTable {
 	 * @throws TableException
 	 */
 	protected function findColNum($name) {
+		if(is_numeric($name)) return intval($name);
+
 		foreach($this->header as $i => $n) {
 			if($n == $name) {
 				return $i;

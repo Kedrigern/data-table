@@ -77,15 +77,19 @@ interface ITable {
 	 * Call function to the all values in the column
 	 * @param int $num of column
 	 * @param callable $function
+	 * @param array $params params to the callback
+	 * @throws InvalidCallback
 	 */
-	public function callToCol($num, $function);
+	public function callToCol($num, $function, $params = null);
 
 	/**
 	 * Call function to the all values in the row
 	 * @param int $num of row
 	 * @param callable $function
+	 * @param array $params params to the callback
+	 * @throws InvalidCallback
 	 */
-	public function callToRow($num, $function);
+	public function callToRow($num, $function, $params = null);
 
 	/**
 	 * Swap two columns
