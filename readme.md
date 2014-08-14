@@ -45,6 +45,7 @@ $newTable = $table->resortColsByNewHeader(array("Unique", "Surname", "Name"));
 1 DOE John
 2 ROE Jane
 ```
+### CSV with header
 
 Very common issue when you have some data in csv with header and you need only subset:
 ```php
@@ -61,6 +62,8 @@ $table2 = $table->renameColumns($map);
 
 Where `table2` contains column `Alpha` renamed to `A` and column `Beta` renamed to `B`. See [test](test/examples/readme2.phpt).
 
+### Remove if
+
 Remove all rows with even number in first column:
 ```php
 $isEven = function($row) {
@@ -71,6 +74,51 @@ $removed = $t->removeRowsIf($isEven);
 ```
 
 In `removed` are number of modified rows.
+
+### Parse datetime
+
+```php
+$table->loadFromArray(array(
+	array("Name", "Surname", "Age", "Born", "Registered"),
+	array("Jane", "Roe", 29, "1990-1-1", "2013-12-30 01:02:03"),
+	array("John", "Doe", 30, "1990-1-1", "2014-12-30 01:02:03")
+));
+$table->useFirstRowAsHeader();
+
+$func = array('\Kedrigern\DataTable\Callback','toDatetime');
+$table->callToCol(3, $func, array('Y-m-d', 'M y'));
+
+$func = array('\Kedrigern\DataTable\Callback','toDatetime', 'Europe/London');
+$table->callToCol(4, $func, array('Y-m-d H:i:s', 'U'));
+```
+
+Now `Born` seems: `["Jan 90", "Feb 91"]`, and registered: `["1388361723", "1419897723"]`
+
+### Join and split columns
+
+```php
+$table->loadFromArray(array(
+	array("Name", "Surname"),
+	array("Jane", "Roe"),
+	array("John", "Doe")
+));
+
+$table->joinCols(array("Name", Surname", "Fullname");
+```
+
+In Fullname column you get: `["Jane Roe", "John Doe"]`.
+
+Or opposite way:
+
+```php
+$table->loadFromArray(array(
+	array("Fullname"),
+	array("Jane Roe"),
+	array("John Doe")
+));
+
+$table->splitCol("Fullname", array("Name", Surname");
+```
 
 ##Author and contact
  * [Ondřej Profant](https://github.com/Kedrigern), 2014

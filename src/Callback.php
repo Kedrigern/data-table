@@ -4,7 +4,7 @@ class Callback {
 
 	/**
 	 * Join columns with space
-	 * @param $cols
+	 * @param array $cols
 	 * @return string
 	 */
 	public static function defaultJoin($cols)
@@ -14,6 +14,21 @@ class Callback {
 			$joined .= $col . " ";
 		}
 		$joined = substr($joined, 0, mb_strlen($joined)-1);
+		return $joined;
+	}
+
+	/**
+	 * @param array $cols
+	 * @param array $params
+	 * @return string
+	 */
+	public static function joinWith($cols, $params)
+	{
+		$joined = "";
+		foreach($cols as $col) {
+			$joined .= $col . $params[0];
+		}
+		$joined = substr($joined, 0, mb_strlen($joined)-mb_strlen($params[0]));
 		return $joined;
 	}
 
