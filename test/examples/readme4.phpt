@@ -17,9 +17,8 @@ $table->useFirstRowAsHeader();
 \Tester\Assert::same(5, $table->getColsNum());
 
 $func = array('\Kedrigern\DataTable\Callback','toDatetime');
-$table->callToCol("Born", $func, array('Y-m-d', 'M y'));
 
-$func = array('\Kedrigern\DataTable\Callback','toDatetime');
+$table->callToCol("Born", $func, array('Y-m-d', 'M y'));
 $table->callToCol("Registered", $func, array('Y-m-d H:i:s', 'U', 'Europe/London'));
 
 \Tester\Assert::same(5, $table->getColsNum());

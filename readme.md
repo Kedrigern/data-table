@@ -86,9 +86,8 @@ $table->loadFromArray(array(
 $table->useFirstRowAsHeader();
 
 $func = array('\Kedrigern\DataTable\Callback','toDatetime');
-$table->callToCol(3, $func, array('Y-m-d', 'M y'));
 
-$func = array('\Kedrigern\DataTable\Callback','toDatetime');
+$table->callToCol(3, $func, array('Y-m-d', 'M y'));
 $table->callToCol(4, $func, array('Y-m-d H:i:s', 'U', 'Europe/London'));
 ```
 
