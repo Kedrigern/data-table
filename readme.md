@@ -88,8 +88,8 @@ $table->useFirstRowAsHeader();
 $func = array('\Kedrigern\DataTable\Callback','toDatetime');
 $table->callToCol(3, $func, array('Y-m-d', 'M y'));
 
-$func = array('\Kedrigern\DataTable\Callback','toDatetime', 'Europe/London');
-$table->callToCol(4, $func, array('Y-m-d H:i:s', 'U'));
+$func = array('\Kedrigern\DataTable\Callback','toDatetime');
+$table->callToCol(4, $func, array('Y-m-d H:i:s', 'U', 'Europe/London'));
 ```
 
 Now `Born` seems: `["Jan 90", "Feb 91"]`, and registered: `["1388361723", "1419897723"]`
