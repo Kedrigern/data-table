@@ -106,8 +106,10 @@ interface IRecordTable extends ITable {
 	/**
 	 * @param array $newHeader must be associative array with format:
 	 * <code>
-	 *      oldColName1 => newColName1
-	 *      oldColName2 => newColName2
+	 *      oldColName1 => newColName1,
+	 *      array('join', array(oldA, oldB), newColName2),
+	 *      array('split', oldColName3, array(newA, newB)),
+	 *      oldColName4 => newColName4
 	 *      ...
 	 * </code>
 	 * Order is hold by order in array

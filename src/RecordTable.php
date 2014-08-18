@@ -234,8 +234,10 @@ class RecordTable extends Table implements IRecordTable {
 	/**
 	 * @param array $newHeader must be associative array with format:
 	 * <code>
-	 *      oldColName1 => newColName1
-	 *      oldColName2 => newColName2
+	 *      oldColName1 => newColName1,
+	 *      array('join', array(oldA, oldB), newColName2),
+	 *      array('split', oldColName3, array(newA, newB)),
+	 *      oldColName4 => newColName4
 	 *      ...
 	 * </code>
 	 * Order is hold by order in array
@@ -245,10 +247,22 @@ class RecordTable extends Table implements IRecordTable {
 	{
 		$newTable = new RecordTable();
 		foreach($newHeader as $oldname => $newname) {
-			$col = $this->getColByName($oldname);
-			$newTable->appendCol($col);
+			if(is_array($newname)) {
+				if($newname[0] == 'join') {
+					$this->joinCols($newname[1], $newname[2]);
+					$newTable->appendCol($this->getColByName($newname[2]), $newname[2]);
+				}
+				if($newname[0] == 'split') {
+					$this->splitCol($newname[1], $newname[2]);
+					foreach($newname[2] as $col) {
+						$newTable->appendCol($this->getColByName($col), $col);
+					}
+				}
+			} else {
+				$col = $this->getColByName($oldname);
+				$newTable->appendCol($col, $newname);
+			}
 		}
-		$newTable->setHeader( array_values($newHeader) );
 		return $newTable;
 	}
 
