@@ -318,7 +318,7 @@ class RecordTable extends Table implements IRecordTable {
 	/**
 	 * @param string $name
 	 * @return int
-	 * @throws TableException
+	 * @throws UnknownColName
 	 */
 	protected function findColNum($name) {
 		if(is_numeric($name)) return intval($name);
@@ -328,7 +328,7 @@ class RecordTable extends Table implements IRecordTable {
 				return $i;
 			}
 		}
-		throw new TableException("In header is not column " . $name);
+		throw new UnknownColName("In header is not column " . $name, 0, null, $name);
 	}
 
 
