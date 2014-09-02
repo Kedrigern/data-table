@@ -62,9 +62,10 @@ interface IRecordTable extends ITable {
 	public function swapColByNames($name1, $name2);
 
 	/**
+	 * @param bool $trim trim values of header
 	 * Use first row as column
 	 */
-	public function useFirstRowAsHeader();
+	public function useFirstRowAsHeader($trim = false);
 
 	/**
 	 * @param sum $name

@@ -176,11 +176,15 @@ class RecordTable extends Table implements IRecordTable {
 
 	/**
 	 * Use first row as column
+	 * @param bool $trim trim values of header
 	 */
-	public function useFirstRowAsHeader() {
+	public function useFirstRowAsHeader($trim = false) {
 		$this->header = $this->table[0];
 		unset($this->table[0]);
 		$this->table =  array_values($this->table); // normalize indexes
+		if($trim) {
+			array_walk_recursive($this->header, function(&$val) { $val = trim($val); });
+		}
 	}
 
 	/**
