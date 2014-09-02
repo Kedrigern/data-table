@@ -102,7 +102,7 @@ $table->loadFromArray(array(
 	array("John", "Doe")
 ));
 
-$table->joinCols(array("Name", Surname", "Fullname");
+$table->joinCols(["Name", "Surname"], "Fullname");
 ```
 
 In Fullname column you get: `["Jane Roe", "John Doe"]`.
@@ -116,7 +116,7 @@ $table->loadFromArray(array(
 	array("John Doe")
 ));
 
-$table->splitCol("Fullname", array("Name", Surname");
+$table->splitCol("Fullname", ["Name", "Surname"]);
 ```
 
 ##Author and contact
