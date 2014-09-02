@@ -183,8 +183,15 @@ class RecordTable extends Table implements IRecordTable {
 		unset($this->table[0]);
 		$this->table =  array_values($this->table); // normalize indexes
 		if($trim) {
-			array_walk_recursive($this->header, function(&$val) { $val = trim($val); });
+			$this->trimHeader();
 		}
+	}
+
+	/**
+	 * Trim header
+	 */
+	public function trimHeader() {
+		array_walk_recursive($this->header, function(&$val) { $val = trim($val); });
 	}
 
 	/**
