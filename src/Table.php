@@ -109,9 +109,13 @@ class Table implements ITable {
 	 *      array("row2 col1", "row2 col2"),
 	 *  )
 	 * </code>
+	 * @param bool $removeLastEmpty removes lines with another size than first
 	 */
-	public function loadFromArray(array $rawArray) {
+	public function loadFromArray(array $rawArray, $removeLastEmpty = false) {
 		$this->table = $rawArray;
+		if($removeLastEmpty) {
+			$this->removeEmpty(true);
+		}
 	}
 
 	/**
@@ -354,6 +358,23 @@ class Table implements ITable {
 			$string .= "\n";
 		}
 		return $string;
+	}
+
+	/**
+	 * Removes lines with another size than first
+	 * @param bool $last
+	 */
+	public function removeEmpty($last = true) {
+		$norma = count($this->table[0]);
+		for($i = $this->getRowsNum()-1; $i > 0; $i--) {
+			if(count($this->table[$i]) != $norma) {
+				$this->removeRow($i);
+			} else {
+				if($last) {
+					break;
+				}
+			}
+		}
 	}
 
 	/**** Internal ****/

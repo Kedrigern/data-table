@@ -140,8 +140,9 @@ interface ITable {
 	 *      array("row2 col1", "row2 col2"),
 	 *  )
 	 * </code>
+	 * @param bool $removeLastEmpty removes lines with another size than first
 	 */
-	public function loadFromArray(array $rawArray);
+	public function loadFromArray(array $rawArray, $removeLastEmpty = false);
 
 	/**
 	 * Load from csv string
