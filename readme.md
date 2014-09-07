@@ -2,9 +2,10 @@
 
 For robust manipulation with table organized collection of data (excel, csv tables).
 
-Provide ability to work with whole rows and columns, call callbacks, resort, rename, filter... See examples.
+Provide ability to work with whole rows and columns, call callbacks, resort, rename, filter.
+Include few predefined callbacks. See examples.
 
-Import csv and array. Export to plain array, text, html, csv.
+Import csv and array. Export to plain array, text, html, csv. Export is suitable for DB frameworks (`Nette\Database`).
 
 ##Install
 
@@ -118,6 +119,19 @@ $table->loadFromArray(array(
 
 $table->splitCol("Fullname", ["Name", "Surname"]);
 ```
+
+### Callbacks
+
+Predefined callbacks:
+* join
+* joinWith
+* split
+* toDatetime
+* isEven
+* isOdd
+* allowValues
+* disallowValues
+* unicodeTrim
 
 ##Author and contact
  * [Ondřej Profant](https://github.com/Kedrigern), 2014

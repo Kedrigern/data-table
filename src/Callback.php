@@ -87,4 +87,13 @@ class Callback {
 	public static function disallowValues($cell, array $values) {
 		return in_array($cell, $values);
 	}
+
+	/**
+	 * Trim unicode string
+	 * @param string $str
+	 * @return string
+	 */
+	public static function unicodeTrim ($str) {
+		return preg_replace('/^[\pZ\pC]+|[\pZ\pC]+$/u','', $str);
+	}
 }

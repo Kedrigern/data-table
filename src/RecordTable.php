@@ -192,7 +192,7 @@ class RecordTable extends Table implements IRecordTable {
 	 */
 	public function trimHeader() {
 		array_walk_recursive($this->header, function(&$val) {
-			$val = $this->unicode_trim($val);
+			$val = Callback::unicodeTrim($val);
 		});
 	}
 
@@ -369,13 +369,5 @@ class RecordTable extends Table implements IRecordTable {
 			}
 		}
 		throw new UnknownColName("In header is not column " . $name, 0, null, $name);
-	}
-
-	/**
-	 * @param string $str
-	 * @return string
-	 */
-	private static function unicode_trim ($str) {
-		return preg_replace('/^[\pZ\pC]+|[\pZ\pC]+$/u','', $str);
 	}
 }
