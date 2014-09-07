@@ -53,4 +53,38 @@ class Callback {
 		}
 		return $dt->format($params[1]);
 	}
+
+	/**
+	 * @param string|int $cell
+	 * @return bool
+	 */
+	public static function isEven($cell) {
+		return intval($cell) % 2 == 0;
+	}
+
+	/**
+	 * @param string|int $cell
+	 * @return bool
+	 */
+	public static function isOdd($cell) {
+		return !self::isEven($cell);
+	}
+
+	/**
+	 * @param string $cell
+	 * @param array $values
+	 * @return bool
+	 */
+	public static function allowValues($cell, array $values) {
+		return !in_array($cell, $values);
+	}
+
+	/**
+	 * @param string $cell
+	 * @param array $values
+	 * @return bool
+	 */
+	public static function disallowValues($cell, array $values) {
+		return in_array($cell, $values);
+	}
 }

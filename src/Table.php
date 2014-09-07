@@ -282,13 +282,16 @@ class Table implements ITable {
 	}
 
 	/**
-	 * @inheritdoc
+	 * Remove rows if $callback return true
+	 * @param callable $callback
+	 * @param array $param
+	 * @return int number of removed rows
 	 */
-	public function removeRowsIf($condition) {
+	public function removeRowsIf($callback, $param = []) {
 		$modified = 0;
 
 		foreach($this->table as $key => $row) {
-			$ret = call_user_func($condition, $row);
+			$ret = call_user_func_array($callback, [$row, $param]);
 			if($ret) {
 				unset($this->table[$key]);
 				$modified++;

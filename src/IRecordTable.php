@@ -119,6 +119,16 @@ interface IRecordTable extends ITable {
 	public function renameColumns(array $newHeader);
 
 	/**
+	 * Remove rows if $callback return true
+	 * @param callable $callback
+	 * @param string $colName
+	 * @param array $param another parameter for callback
+	 * @return int number of removed rows
+	 */
+	public function removeRowsIfCol($callback, $colName, $param = []);
+
+
+	/**
 	 * Load from iterable data. For example some DB class, and load only columns from header.
 	 * @param iterable $data
 	 */

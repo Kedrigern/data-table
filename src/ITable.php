@@ -124,11 +124,12 @@ interface ITable {
 	public function removeRow($num);
 
 	/**
-	 * Remove rows if $condition return true
-	 * @param callable $condition
+	 * Remove rows if $callback return true
+	 * @param callable $callback
+	 * @param array $param
 	 * @return int number of removed rows
 	 */
-	public function removeRowsIf($condition);
+	public function removeRowsIf($callback, $param = []);
 
 	/**** Loads ****/
 

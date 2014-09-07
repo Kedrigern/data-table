@@ -301,6 +301,33 @@ class RecordTable extends Table implements IRecordTable {
 	}
 
 	/**
+	 * Remove rows if $callback return true
+	 * @param callable $callback
+	 * @param string $colName
+	 * @param array $param another parameter for callback
+	 * @return int number of removed rows
+	 */
+	public function removeRowsIfCol($callback, $colName, $param = [])
+	{
+		$modified = 0;
+
+		$num = $this->findColNum($colName);
+
+		foreach($this->table as $key => $row) {
+			$cell = $row[$num];
+			$ret = call_user_func_array($callback, [$cell, $param]);
+			if($ret) {
+				unset($this->table[$key]);
+				$modified++;
+			}
+		}
+		// normalize indexes
+		$this->table = array_values($this->table);
+
+		return $modified;
+	}
+
+	/**
 	 * @param string $delimiter
 	 * @param int $colSize
 	 * @return string
@@ -348,7 +375,7 @@ class RecordTable extends Table implements IRecordTable {
 	 * @param string $str
 	 * @return string
 	 */
-	private function unicode_trim ($str) {
+	private static function unicode_trim ($str) {
 		return preg_replace('/^[\pZ\pC]+|[\pZ\pC]+$/u','', $str);
 	}
 }
