@@ -45,9 +45,13 @@ class Callback {
 	 * @param string $cell
 	 * @param array $params
 	 * @return string
+	 * @throws UnknownColFormat
 	 */
 	public static function toDatetime($cell, $params) {
 		$dt = \DateTime::createFromFormat($params[0], $cell);
+		if($dt === false) {
+			throw new UnknownColFormat('', 0, null, 'date', $cell);
+		}
 		if(isset($params[2])) {
 			$dt->setTimezone(new \DateTimeZone($params[2]));
 		}
