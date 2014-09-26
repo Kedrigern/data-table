@@ -112,7 +112,7 @@ class Table implements ITable {
 	 * @param bool $removeLastEmpty removes lines with another size than first
 	 */
 	public function loadFromArray(array $rawArray, $removeLastEmpty = false) {
-		$this->table = $rawArray;
+		$this->table = array_values($rawArray);
 		if($removeLastEmpty) {
 			$this->removeEmpty(true);
 		}
@@ -368,6 +368,8 @@ class Table implements ITable {
 	 * @param bool $last
 	 */
 	public function removeEmpty($last = true) {
+		if($this->isEmpty()) return;
+
 		$norma = count($this->table[0]);
 		for($i = $this->getRowsNum()-1; $i > 0; $i--) {
 			if(count($this->table[$i]) != $norma) {
