@@ -7,12 +7,16 @@ Include few predefined callbacks. See examples.
 
 Import csv and array. Export to plain array, text, html, csv. Export is suitable for DB frameworks (`Nette\Database`).
 
+[![Build Status](https://travis-ci.org/Kedrigern/data-table.svg?branch=master)](https://travis-ci.org/Kedrigern/data-table)
+
 ##Install
 
 The best way how to install is use [Composer](https://getcomposer.org/):
 ```
 php composer.phar require kedrigern/data-table
 ```
+
+Run tests: `vendor/bin/tester -c test/ test/`
 
 ##Examples
 
@@ -136,5 +140,3 @@ Predefined callbacks:
 ##Author and contact
  * [Ondřej Profant](https://github.com/Kedrigern), 2014
  * [issues](https://github.com/Kedrigern/data-table/issues)
-
-
